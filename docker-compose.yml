@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   db:
     image: postgres:13.1-alpine
@@ -17,6 +15,7 @@ services:
         WORKDIR: $WORKDIR
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      API_DOMAIN: "localhost:$FRONT_PORT"
     volumes:
       - "./api:/$WORKDIR"
     depends_on:
@@ -29,6 +28,7 @@ services:
       context: ./front
       args:
         WORKDIR: $WORKDIR
+        API_URL: "http://localhost:$API_PORT"
     command: yarn run dev
     volumes:
       - "./front:/$WORKDIR"
