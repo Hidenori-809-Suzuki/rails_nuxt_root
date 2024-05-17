@@ -15,9 +15,11 @@ services:
         WORKDIR: $WORKDIR
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      API_DOMAIN: "localhost:8080"
+      API_DOMAIN: "api"
+      # API_DOMAIN: "localhost:8080"
       # API_DOMAIN: "localhost:$FRONT_PORT"
-      BASE_URL: "http://localhost:3000"
+      BASE_URL: "http://api:3000"
+      # BASE_URL: "http://localhost:3000"
       # BASE_URL: "http://localhost:$API_PORT"
     command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
@@ -33,7 +35,8 @@ services:
       context: ./front
       args:
         WORKDIR: $WORKDIR
-        API_URL: "http://localhost:3000"
+        API_URL: "http://api:3000"
+        # API_URL: "http://localhost:3000"
         # API_URL: "http://localhost:$API_PORT"
     command: yarn run dev
     volumes:
